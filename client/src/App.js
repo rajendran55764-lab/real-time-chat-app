@@ -1,68 +1,60 @@
-import React, { useState } from 'react';
-import Login from './components/Login';
-import ChatRoom from './components/ChatRoom';
+import React from 'react';
 
 function App() {
-  const [token, setToken] = useState('');
-  const [user, setUser] = useState(null);
-
-  const logout = () => {
-    setToken('');
-    setUser(null);
-  };
-
-  const handleLogin = (token, userData) => {
-    setToken(token);
-    setUser(userData);
-  };
-
   return (
     <div style={{
-      minHeight:'100vh',
-      background:'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+      minHeight:'100vh'
     }}>
       <div style={{
-        background:'rgba(255,255,255,0.1)',
-        backdropFilter:'blur(10px)',
-        color:'white',
-        padding:'15px 30px',
-        display:'flex',
-        justifyContent:'space-between',
-        alignItems:'center'
+        background:'white',
+        padding:'40px',
+        borderRadius:'15px',
+        textAlign:'center',
+        maxWidth:'400px',
+        width:'90%'
       }}>
-        <h1 style={{fontSize:'22px'}}>💬 Real-Time Chat</h1>
-        <div>
-          {token ? (
-            <>
-              <span style={{color:'white', marginRight:'15px'}}>
-                👤 {user?.username}
-              </span>
-              <button
-                onClick={logout}
-                style={{
-                  background:'rgba(255,255,255,0.2)',
-                  color:'white',
-                  border:'1px solid rgba(255,255,255,0.3)',
-                  padding:'8px 16px',
-                  borderRadius:'25px',
-                  cursor:'pointer'
-                }}
-              >
-                🚪 Logout
-              </button>
-            </>
-          ) : (
-            <span style={{color:'white'}}>Please login to chat!</span>
-          )}
-        </div>
-      </div>
-
-      <div style={{maxWidth:'1200px', margin:'30px auto', padding:'0 20px'}}>
-        {!token ? (
-          <Login handleLogin={handleLogin} />
-        ) : (
-          <ChatRoom token={token} user={user} />
-        )}
+        <h1 style={{color:'#333'}}>💬 Chat App</h1>
+        <p style={{color:'#666'}}>App is Working!</p>
+        <input
+          type="email"
+          placeholder="Enter email"
+          style={{
+            width:'100%',
+            padding:'12px',
+            margin:'10px 0',
+            borderRadius:'8px',
+            border:'1px solid #ddd',
+            fontSize:'14px'
+          }}
+        />
+        <input
+          type="password"
+          placeholder="Enter password"
+          style={{
+            width:'100%',
+            padding:'12px',
+            margin:'10px 0',
+            borderRadius:'8px',
+            border:'1px solid #ddd',
+            fontSize:'14px'
+          }}
+        />
+        <button style={{
+          width:'100%',
+          padding:'12px',
+          background:'#0f3460',
+          color:'white',
+          border:'none',
+          borderRadius:'8px',
+          fontSize:'16px',
+          cursor:'pointer',
+          marginTop:'10px'
+        }}>
+          Login
+        </button>
       </div>
     </div>
   );
