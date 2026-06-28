@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import RoomList from './RoomList';
 
-const BACKEND_URL = 'https://real-time-chat-backend-xxxx.onrender.com';
+const BACKEND_URL = 'https://real-time-chat-backend-nqca.onrender.com';
 
 function ChatRoom({ token, user }) {
   const [currentRoom, setCurrentRoom] = useState(null);
