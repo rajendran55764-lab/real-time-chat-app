@@ -17,8 +17,8 @@ function Login({ handleLogin }) {
     e.preventDefault();
     try {
       const url = isRegister
-        ? 'https://real-time-chat-backend-xxxx.onrender.com/api/auth/register'
-        : 'https://real-time-chat-backend-xxxx.onrender.com/api/auth/login';
+        ? 'https://real-time-chat-backend-nqca.onrender.com/api/auth/register'
+        : 'https://real-time-chat-backend-nqca.onrender.com/api/auth/login';
 
       const body = isRegister
         ? { username, ...formData }
