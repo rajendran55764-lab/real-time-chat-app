@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import RoomList from './RoomList';
 
 const BACKEND_URL = 'https://real-time-chat-backend-nqca.onrender.com';
@@ -10,12 +10,13 @@ function ChatRoom({ token, user }) {
   const [newMessage, setNewMessage] = useState('');
   const [typing, setTyping] = useState('');
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const [error, setError] = useState('');
   const socketRef = useRef(null);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    socketRef.current = io(BACKEND_URL);
+    socketRef.current = io(BACKEND_URL, {
+      transports: ['websocket', 'polling']
+    });
 
     socketRef.current.emit('userOnline', user.id);
 
@@ -42,9 +43,7 @@ function ChatRoom({ token, user }) {
 
   useEffect(() => {
     if (currentRoom) {
-      if (socketRef.current) {
-        socketRef.current.emit('joinRoom', currentRoom._id);
-      }
+      socketRef.current.emit('joinRoom', currentRoom._id);
       fetchMessages(currentRoom._id);
     }
   }, [currentRoom]);
@@ -63,20 +62,18 @@ function ChatRoom({ token, user }) {
         setMessages(data);
       }
     } catch (err) {
-      setError('Error loading messages');
+      console.log('Error loading messages');
     }
   };
 
   const sendMessage = () => {
     if (!newMessage.trim() || !currentRoom) return;
-
     socketRef.current.emit('sendMessage', {
       roomId: currentRoom._id,
       content: newMessage,
       senderId: user.id,
       senderName: user.username
     });
-
     setNewMessage('');
   };
 
@@ -102,7 +99,6 @@ function ChatRoom({ token, user }) {
         currentRoom={currentRoom}
         setCurrentRoom={setCurrentRoom}
       />
-
       <div className="chat-window">
         {!currentRoom ? (
           <div style={{
@@ -128,7 +124,6 @@ function ChatRoom({ token, user }) {
                 🟢 {onlineUsers.length} online
               </p>
             </div>
-
             <div className="messages-container">
               {messages.length === 0 ? (
                 <div style={{textAlign:'center', color:'#999', marginTop:'50px'}}>
@@ -145,4 +140,35 @@ function ChatRoom({ token, user }) {
                     </div>
                     <div className="message-info">
                       {msg.senderName === user.username ? 'You' : msg.senderName} •{' '}
-                      {new Date(msg.createdAt).toLocaleTimeString()
+                      {new Date(msg.createdAt).toLocaleTimeString()}
+                    </div>
+                  </div>
+                ))
+              )}
+              {typing && <p className="typing-indicator">{typing}</p>}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="message-input">
+              <input
+                type="text"
+                placeholder="Type a message..."
+                value={newMessage}
+                onChange={handleTyping}
+                onKeyPress={handleKeyPress}
+              />
+              <button
+                className="btn"
+                style={{padding:'12px 20px'}}
+                onClick={sendMessage}
+              >
+                Send 🚀
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default ChatRoom;
