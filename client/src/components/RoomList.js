@@ -12,7 +12,7 @@ function RoomList({ token, currentRoom, setCurrentRoom }) {
 
   const fetchRooms = async () => {
     try {
-      const res = await fetch('https://real-time-chat-backend-xxxx.onrender.com/api/rooms', {
+      const res = await fetch('https://real-time-chat-backend-nqca.onrender.com/api/rooms', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -29,7 +29,7 @@ function RoomList({ token, currentRoom, setCurrentRoom }) {
 
   const createRoom = async () => {
     try {
-      const res = await fetch('https://real-time-chat-backend-xxxx.onrender.com/api/rooms', {
+      const res = await fetch('https://real-time-chat-backend-nqca.onrender.com/api/rooms', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
