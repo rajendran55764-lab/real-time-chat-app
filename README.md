@@ -31,10 +31,9 @@ A real-time chat application using WebSocket technology enabling instant messagi
 
 ##  Live Demo
 ### Frontend
-[Click Here](https://real-time-chat-app-theta-five.vercel.app)
+[Click Here](https://real-time-chat-app-ivory-beta.vercel.app)
 
 ### Backend
 [Click Here](https://real-time-chat-backend-nqca.onrender.com)
-
 ## 👨‍💻 Author
 rajendran55764-lab - Prodigy Infotech Internship Task 04
